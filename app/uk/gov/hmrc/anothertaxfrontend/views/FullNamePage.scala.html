@@ -16,7 +16,7 @@
 
 @this(layout: Layout,
         secureForm: FormWithCSRF,
-        govukInput: GovukInput,
+        textInput: TextInput,
         govukButton: GovukButton,
         govukErrorSummary: GovukErrorSummary)
 
@@ -39,38 +39,11 @@
 
   @secureForm(uk.gov.hmrc.anothertaxfrontend.controllers.routes.FullNameController.submit) {
 
-    @govukInput(Input(
-      id = "first",
-      name = "first",
-      label = Label(
-        content = Text(messages("fullName.first"))
-      ),
-      value = form("first").value,
-      errorMessage = form("first").error.map { error =>
-        ErrorMessage(content = Text(messages(error.message)))
-      }
-    ))
+    @textInput(form("first"), "fullName.first")
 
-    @govukInput(Input(
-      id = "middle",
-      name = "middle",
-      label = Label(
-        content = Text(messages("fullName.middle"))
-      ),
-      value = form("middle").value
-    ))
+    @textInput(form("middle"), "fullName.middle")
 
-    @govukInput(Input(
-      id = "last",
-      name = "last",
-      label = Label(
-        content = Text(messages("fullName.last"))
-      ),
-      value = form("last").value,
-      errorMessage = form("last").error.map { error =>
-        ErrorMessage(content = Text(messages(error.message)))
-      }
-    ))
+    @textInput(form("last"), "fullName.last")
 
     @govukButton(Button(content = Text(messages("general.continue"))))
   }
