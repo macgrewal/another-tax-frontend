@@ -1,2 +1,10 @@
 service.name = another-tax-frontend
 service.text = This is your new service
+
+general.continue = Continue
+general.errorSummary = There is a problem
+
+fullName.heading = What is your name?
+fullName.first = First name
+fullName.middle = Middle names
+fullName.last = Last name

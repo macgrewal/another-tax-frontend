@@ -33,6 +33,6 @@ class ControllerSpecBase extends UnitSpec with GuiceOneAppPerSuite with Injectin
       )
       .build()
 
-  val fakeRequest: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("GET", "/")
+  implicit val fakeRequest: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("GET", "/")
 
 }

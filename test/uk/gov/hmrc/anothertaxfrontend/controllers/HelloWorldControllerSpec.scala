@@ -16,20 +16,10 @@
 
 package uk.gov.hmrc.anothertaxfrontend.controllers
 
-import play.api.Application
 import play.api.http.Status
-import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
 
 class HelloWorldControllerSpec extends ControllerSpecBase {
-
-  override def fakeApplication(): Application =
-    new GuiceApplicationBuilder()
-      .configure(
-        "metrics.jvm" -> false,
-        "metrics.enabled" -> false
-      )
-      .build()
 
   private val controller = inject[HelloWorldController]
 
