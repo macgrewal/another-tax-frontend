@@ -22,7 +22,7 @@ import uk.gov.hmrc.anothertaxfrontend.models.FullName
 
 class FullNameFormSpec extends UnitSpec {
 
-  val form: Form[FullName] = new FullNameForm().form
+  val form: Form[FullName] = FullNameForm.form
 
   "FullNameForm.form" when {
 
@@ -30,15 +30,15 @@ class FullNameFormSpec extends UnitSpec {
       "result in a an error against the first name field" in {
         val result = form.bind(Map("last" -> "Smith"))
         val error = result("first").error.getOrElse(fail("error against first name field not generated"))
-        error.message mustBe "error.required"
+        error.message mustBe "fullName.first.required"
       }
     }
 
     "no last name is supplied" must {
       "result in a an error against the last name field" in {
         val result = form.bind(Map("first" -> "Smith"))
-        val error = result("last").error.getOrElse(fail("error against first name field not generated"))
-        error.message mustBe "error.required"
+        val error = result("last").error.getOrElse(fail("error against last name field not generated"))
+        error.message mustBe "fullName.last.required"
       }
     }
 

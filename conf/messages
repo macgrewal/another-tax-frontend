@@ -7,8 +7,10 @@ general.no = No
 
 fullName.heading = What is your name?
 fullName.first = First name
+fullName.first.required = Enter your first name
 fullName.middle = Middle names
 fullName.last = Last name
+fullName.last.required = Enter your last name
 
 dob.heading = What is your date of birth?
 dob.hint = For example, 23 9 1977

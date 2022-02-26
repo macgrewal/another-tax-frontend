@@ -17,7 +17,6 @@
 package uk.gov.hmrc.anothertaxfrontend.controllers
 
 import play.api.data.Form
-import play.api.libs.json.Json
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.anothertaxfrontend.forms.YesNoForm
 import uk.gov.hmrc.anothertaxfrontend.views.html.StillInEducationPage
@@ -29,24 +28,24 @@ import scala.concurrent.Future
 @Singleton
 class StillInEducationController @Inject()(mcc: MessagesControllerComponents,
                                            view: StillInEducationPage)
-  extends FrontendController(mcc) {
+  extends FrontendController(mcc)
+    with SessionStorageController[Boolean] {
+
+  override val sessionKey: String = "stillInEducation"
 
   val yesNoForm: Form[Boolean] = YesNoForm.create("stillInEducation.required")
 
   val display: Action[AnyContent] = Action.async { implicit request =>
-    val form = request.session.data.get("stillInEducation").fold(yesNoForm) { data =>
-      val value = Json.parse(data).as[Boolean]
-      yesNoForm.fillAndValidate(value)
-    }
+    val form = populateFormFromSession(yesNoForm)
     Future.successful(Ok(view(form)))
   }
 
   val submit: Action[AnyContent] = Action.async { implicit request =>
     val result = yesNoForm.bindFromRequest().fold(
       formWithErrors => BadRequest(view(formWithErrors)),
-      data =>
-        Redirect(uk.gov.hmrc.anothertaxfrontend.controllers.routes.StillInEducationController.display)
-          .addingToSession("stillInEducation" -> Json.toJson(data).toString())
+      data => saveSessionData(data) {
+        Redirect(routes.StillInEducationController.display)
+      }
     )
 
     Future.successful(result)
