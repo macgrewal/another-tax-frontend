@@ -17,7 +17,6 @@
 package uk.gov.hmrc.anothertaxfrontend.controllers
 
 import play.api.data.Form
-import play.api.libs.json.Json
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.anothertaxfrontend.forms.DateForm
 import uk.gov.hmrc.anothertaxfrontend.views.html.DateOfBirthPage
@@ -30,7 +29,10 @@ import scala.concurrent.Future
 @Singleton
 class DateOfBirthController @Inject()(mcc: MessagesControllerComponents,
                                       view: DateOfBirthPage)
-  extends FrontendController(mcc) {
+  extends FrontendController(mcc)
+    with SessionStorageController[LocalDate] {
+
+  override val sessionKey: String = "dateOfBirth"
 
   val dateOfBirthForm: Form[LocalDate] = DateForm.create(
     "dob.day.required",
@@ -43,19 +45,16 @@ class DateOfBirthController @Inject()(mcc: MessagesControllerComponents,
   )
 
   val display: Action[AnyContent] = Action.async { implicit request =>
-    val form = request.session.data.get("dateOfBirth").fold(dateOfBirthForm) { data =>
-      val dob = Json.parse(data).as[LocalDate]
-      dateOfBirthForm.fillAndValidate(dob)
-    }
+    val form = populateFormFromSession(dateOfBirthForm)
     Future.successful(Ok(view(form)))
   }
 
   val submit: Action[AnyContent] = Action.async { implicit request =>
     val result = dateOfBirthForm.bindFromRequest().fold(
       formWithErrors => BadRequest(view(formWithErrors)),
-      data =>
-        Redirect(uk.gov.hmrc.anothertaxfrontend.controllers.routes.DateOfBirthController.display)
-          .addingToSession("dateOfBirth" -> Json.toJson(data).toString())
+      data => saveSessionData(data) {
+        Redirect(routes.DateOfBirthController.display)
+      }
     )
 
     Future.successful(result)

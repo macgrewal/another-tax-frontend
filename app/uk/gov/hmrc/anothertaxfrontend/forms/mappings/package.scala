@@ -51,4 +51,11 @@ package object mappings {
     val formatter = YesNoFormatter.formatter(requiredMessageKey)
     of[Boolean](formatter)
   }
+
+  def text(requiredMessageKey: String): FieldMapping[String] = {
+    val formatter = TextFormatter.formatter(requiredMessageKey)
+    of[String](formatter)
+  }
+
+  val text: FieldMapping[String] = text("error.required")
 }

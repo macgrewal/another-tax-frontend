@@ -17,16 +17,17 @@
 package uk.gov.hmrc.anothertaxfrontend.forms
 
 import play.api.data.Form
-import play.api.data.Forms._
+import play.api.data.Forms.{mapping, optional}
 import uk.gov.hmrc.anothertaxfrontend.models.FullName
+import uk.gov.hmrc.anothertaxfrontend.forms.mappings._
 
-class FullNameForm {
+object FullNameForm {
 
   val form: Form[FullName] = Form(
     mapping(
-      "first" -> nonEmptyText,
+      "first" -> text("fullName.first.required"),
       "middle" -> optional(text),
-      "last" -> nonEmptyText
+      "last" -> text("fullName.last.required")
     )(FullName.apply)(FullName.unapply)
   )
 
