@@ -31,13 +31,6 @@
   @secureForm(uk.gov.hmrc.anothertaxfrontend.controllers.routes.StillInEducationController.submit) {
 
     @govukRadios(Radios(
-      fieldset = Some(Fieldset(
-        legend = Some(Legend(
-          content = Text(messages("stillInEducation.heading")),
-          classes = "govuk-fieldset__legend--xl",
-          isPageHeading = true
-        ))
-      )),
       items = Seq(
         RadioItem(
           content = Text(messages("general.yes")),
@@ -49,7 +42,9 @@
         )
       ),
       classes = "govuk-radios--inline"
-    ).withFormField(form("value"))
+    )
+    .withHeading(messages("stillInEducation.heading").toText)
+    .withFormField(form("value"))
   )
 
     @govukButton(Button(content = Text(messages("general.continue"))))

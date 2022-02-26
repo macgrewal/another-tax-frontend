@@ -18,17 +18,9 @@
 
 @(field: Field, labelMessageKey: String)(implicit messages: Messages)
 
-@govukInput(Input(
-  id = field.id,
-  name = field.name,
-  label = Label(
-    content = Text(messages(labelMessageKey))
-  ),
-  value = field.value,
-  errorMessage = field.error.map { error =>
-    ErrorMessage(content = Text(messages(error.message)))
-  }
-))
+@govukInput(
+  Input(label = messages(labelMessageKey).toLabel).withFormField(field)
+)
 
 @{
   //$COVERAGE-OFF$

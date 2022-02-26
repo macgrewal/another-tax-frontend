@@ -32,15 +32,11 @@
 
   @secureForm(uk.gov.hmrc.anothertaxfrontend.controllers.routes.DateOfBirthController.submit) {
 
-    @govukDateInput(DateInput(
-      hint = Some(Hint(content = Text(messages("dob.hint")))),
-      fieldset = Some(Fieldset(
-        legend = Some(Legend(
-          content = Text(messages("dob.heading")),
-          classes = "govuk-fieldset__legend--xl",
-          isPageHeading = true)))
-      )
-    ).withFormField(form("date")))
+    @govukDateInput(
+      DateInput(hint = Some(messages("dob.hint").toHint))
+              .withHeading(messages("dob.heading").toText)
+              .withFormField(form("date"))
+    )
 
     @govukButton(Button(content = Text(messages("general.continue"))))
   }
