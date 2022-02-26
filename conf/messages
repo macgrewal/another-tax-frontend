@@ -2,7 +2,8 @@ service.name = another-tax-frontend
 service.text = This is your new service
 
 general.continue = Continue
-general.errorSummary = There is a problem
+general.yes = Yes
+general.no = No
 
 fullName.heading = What is your name?
 fullName.first = First name
@@ -18,3 +19,6 @@ dob.month.invalid = Enter a valid month for your date of birth
 dob.year.required = Enter the year of your date of birth
 dob.year.invalid = Enter a valid year for your date of birth
 dob.invalid = Enter a valid date of birth
+
+stillInEducation.heading = Are you still in education?
+stillInEducation.required = Tell us if you are still in education
