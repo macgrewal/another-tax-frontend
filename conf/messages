@@ -8,3 +8,13 @@ fullName.heading = What is your name?
 fullName.first = First name
 fullName.middle = Middle names
 fullName.last = Last name
+
+dob.heading = What is your date of birth?
+dob.hint = For example, 23 9 1977
+dob.day.required = Enter the day of your date of birth
+dob.day.invalid = Enter a valid day for your date of birth
+dob.month.required = Enter the month of your date of birth
+dob.month.invalid = Enter a valid month for your date of birth
+dob.year.required = Enter the year of your date of birth
+dob.year.invalid = Enter a valid year for your date of birth
+dob.invalid = Enter a valid date of birth
