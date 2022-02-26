@@ -7,3 +7,6 @@ GET        /assets/*file            controllers.Assets.versioned(path = "/public
 
 GET        /full-name               uk.gov.hmrc.anothertaxfrontend.controllers.FullNameController.display
 POST       /full-name               uk.gov.hmrc.anothertaxfrontend.controllers.FullNameController.submit
+
+GET        /date-of-birth           uk.gov.hmrc.anothertaxfrontend.controllers.DateOfBirthController.display
+POST       /date-of-birth           uk.gov.hmrc.anothertaxfrontend.controllers.DateOfBirthController.submit

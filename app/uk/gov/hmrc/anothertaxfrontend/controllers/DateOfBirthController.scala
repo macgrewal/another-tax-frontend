@@ -16,36 +16,46 @@
 
 package uk.gov.hmrc.anothertaxfrontend.controllers
 
+import play.api.data.Form
 import play.api.libs.json.Json
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import uk.gov.hmrc.anothertaxfrontend.forms.FullNameForm
-import uk.gov.hmrc.anothertaxfrontend.models.FullName
-import uk.gov.hmrc.anothertaxfrontend.views.html.FullNamePage
+import uk.gov.hmrc.anothertaxfrontend.forms.DateForm
+import uk.gov.hmrc.anothertaxfrontend.views.html.DateOfBirthPage
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
 
+import java.time.LocalDate
 import javax.inject.{Inject, Singleton}
 import scala.concurrent.Future
 
 @Singleton
-class FullNameController @Inject()(mcc: MessagesControllerComponents,
-                                   view: FullNamePage,
-                                   nameForm: FullNameForm)
+class DateOfBirthController @Inject()(mcc: MessagesControllerComponents,
+                                      view: DateOfBirthPage)
   extends FrontendController(mcc) {
 
+  val dateOfBirthForm: Form[LocalDate] = DateForm.create(
+    "dob.day.required",
+    "dob.day.invalid",
+    "dob.month.required",
+    "dob.month.invalid",
+    "dob.year.required",
+    "dob.year.invalid",
+    "dob.invalid"
+  )
+
   val display: Action[AnyContent] = Action.async { implicit request =>
-    val form = request.session.data.get("fullName").fold(nameForm.form) { data =>
-      val name = Json.parse(data).as[FullName]
-      nameForm.form.fillAndValidate(name)
+    val form = request.session.data.get("dateOfBirth").fold(dateOfBirthForm) { data =>
+      val dob = Json.parse(data).as[LocalDate]
+      dateOfBirthForm.fillAndValidate(dob)
     }
     Future.successful(Ok(view(form)))
   }
 
   val submit: Action[AnyContent] = Action.async { implicit request =>
-    val result = nameForm.form.bindFromRequest().fold(
+    val result = dateOfBirthForm.bindFromRequest().fold(
       formWithErrors => BadRequest(view(formWithErrors)),
       data =>
-        Redirect(uk.gov.hmrc.anothertaxfrontend.controllers.routes.FullNameController.display)
-          .addingToSession("fullName" -> Json.toJson(data).toString())
+        Redirect(uk.gov.hmrc.anothertaxfrontend.controllers.routes.DateOfBirthController.display)
+          .addingToSession("dateOfBirth" -> Json.toJson(data).toString())
     )
 
     Future.successful(result)

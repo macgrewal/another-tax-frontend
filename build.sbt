@@ -14,7 +14,9 @@ lazy val microservice = Project(appName, file("."))
     pipelineStages in Assets := Seq(gzip),
     TwirlKeys.templateImports ++= Seq(
       "uk.gov.hmrc.govukfrontend.views.html.components._",
+      "uk.gov.hmrc.govukfrontend.views.html.components.implicits._",
       "uk.gov.hmrc.hmrcfrontend.views.html.components._",
+      "uk.gov.hmrc.hmrcfrontend.views.html.components.implicits._",
       "uk.gov.hmrc.anothertaxfrontend.models._",
       "uk.gov.hmrc.anothertaxfrontend.views.html.components._",
       "uk.gov.hmrc.anothertaxfrontend.views.html.Layout"
