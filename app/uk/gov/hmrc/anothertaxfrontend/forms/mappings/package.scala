@@ -19,7 +19,7 @@ package uk.gov.hmrc.anothertaxfrontend.forms
 import play.api.data.FieldMapping
 import play.api.data.Forms._
 import play.api.data.format.Formatter
-import uk.gov.hmrc.anothertaxfrontend.forms.formatters.LocalDateFormatter
+import uk.gov.hmrc.anothertaxfrontend.forms.formatters._
 
 import java.time.LocalDate
 
@@ -45,5 +45,10 @@ package object mappings {
     )
 
     of[LocalDate](formatter)
+  }
+
+  def yesNo(requiredMessageKey: String): FieldMapping[Boolean] = {
+    val formatter = YesNoFormatter.formatter(requiredMessageKey)
+    of[Boolean](formatter)
   }
 }

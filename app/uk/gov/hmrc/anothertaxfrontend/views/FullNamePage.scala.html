@@ -25,15 +25,7 @@
 @layout(pageTitle = Some(messages("service.name"))) {
 
   @if(form.hasErrors) {
-    @govukErrorSummary(ErrorSummary(
-      errorList = form.errors.map {error =>
-        ErrorLink(
-          href = Some(s"#${error.key}"),
-          content = Text(messages(error.message))
-        )
-      },
-      title = Text(messages("general.errorSummary"))
-    ))
+    @govukErrorSummary(ErrorSummary().withFormErrorsAsText(form))
   }
   <h1 class="govuk-heading-xl">@messages("fullName.heading")</h1>
 

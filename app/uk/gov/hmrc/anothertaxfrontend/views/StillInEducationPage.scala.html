@@ -14,33 +14,43 @@
  * limitations under the License.
  *@
 
-@import java.time.LocalDate
-
 @this(layout: Layout,
         secureForm: FormWithCSRF,
-        govukDateInput: GovukDateInput,
+        govukRadios: GovukRadios,
         govukButton: GovukButton,
         govukErrorSummary: GovukErrorSummary)
 
-@(form: Form[LocalDate])(implicit request: Request[_], messages: Messages)
+@(form: Form[Boolean])(implicit request: Request[_], messages: Messages)
 
 @layout(pageTitle = Some(messages("service.name"))) {
 
   @if(form.hasErrors) {
-    @govukErrorSummary(ErrorSummary().withFormErrorsAsText(form, mapping = Map("date" -> "date.day")))
+    @govukErrorSummary(ErrorSummary().withFormErrorsAsText(form))
   }
 
-  @secureForm(uk.gov.hmrc.anothertaxfrontend.controllers.routes.DateOfBirthController.submit) {
+  @secureForm(uk.gov.hmrc.anothertaxfrontend.controllers.routes.StillInEducationController.submit) {
 
-    @govukDateInput(DateInput(
-      hint = Some(Hint(content = Text(messages("dob.hint")))),
+    @govukRadios(Radios(
       fieldset = Some(Fieldset(
         legend = Some(Legend(
-          content = Text(messages("dob.heading")),
+          content = Text(messages("stillInEducation.heading")),
           classes = "govuk-fieldset__legend--xl",
-          isPageHeading = true)))
-      )
-    ).withFormField(form("date")))
+          isPageHeading = true
+        ))
+      )),
+      items = Seq(
+        RadioItem(
+          content = Text(messages("general.yes")),
+          value = Some("yes")
+        ),
+        RadioItem(
+          content = Text(messages("general.no")),
+          value = Some("no")
+        )
+      ),
+      classes = "govuk-radios--inline"
+    ).withFormField(form("value"))
+  )
 
     @govukButton(Button(content = Text(messages("general.continue"))))
   }

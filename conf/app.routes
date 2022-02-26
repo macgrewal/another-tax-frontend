@@ -9,3 +9,6 @@ POST       /full-name               uk.gov.hmrc.anothertaxfrontend.controllers.F
 
 GET        /date-of-birth           uk.gov.hmrc.anothertaxfrontend.controllers.DateOfBirthController.display
 POST       /date-of-birth           uk.gov.hmrc.anothertaxfrontend.controllers.DateOfBirthController.submit
+
+GET        /still-in-education      uk.gov.hmrc.anothertaxfrontend.controllers.StillInEducationController.display
+POST       /still-in-education      uk.gov.hmrc.anothertaxfrontend.controllers.StillInEducationController.submit
