@@ -24,3 +24,9 @@ dob.invalid = Enter a valid date of birth
 
 stillInEducation.heading = Are you still in education?
 stillInEducation.required = Tell us if you are still in education
+
+employmentStatus.heading = What is your employment status?
+employmentStatus.required = Tell us your employment status
+employmentStatus.option.fullTime = I am in full time employment
+employmentStatus.option.partTime = I am in part time employment
+employmentStatus.option.unemployed = I am unemployed

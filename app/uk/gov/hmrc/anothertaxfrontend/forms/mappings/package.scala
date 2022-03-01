@@ -58,4 +58,10 @@ package object mappings {
   }
 
   val text: FieldMapping[String] = text("error.required")
+
+  def options(requiredMessageKey: String, options: Seq[String]): FieldMapping[String] = {
+    val formatter = OptionsFormatter.formatter(requiredMessageKey, options)
+    of[String](formatter)
+  }
+
 }

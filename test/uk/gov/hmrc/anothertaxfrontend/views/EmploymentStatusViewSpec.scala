@@ -19,22 +19,22 @@ package uk.gov.hmrc.anothertaxfrontend.views
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import play.twirl.api.Html
-import uk.gov.hmrc.anothertaxfrontend.controllers.StillInEducationController
-import uk.gov.hmrc.anothertaxfrontend.views.html.StillInEducationPage
+import uk.gov.hmrc.anothertaxfrontend.controllers.EmploymentStatusController
+import uk.gov.hmrc.anothertaxfrontend.views.html.EmploymentStatusPage
 
-class StillInEducationViewSpec extends ViewSpecBase {
+class EmploymentStatusViewSpec extends ViewSpecBase {
 
 
-  "StillInEducationPage" when {
+  "EmploymentStatusPage" when {
     "rendering a view with no errors" must {
 
-      lazy val target: StillInEducationPage = inject[StillInEducationPage]
-      lazy val form = inject[StillInEducationController].yesNoForm
+      lazy val target: EmploymentStatusPage = inject[EmploymentStatusPage]
+      lazy val form = inject[EmploymentStatusController].employmentStatusForm
       lazy val result: Html = target(form)
       lazy implicit val document: Document = Jsoup.parse(result.body)
 
       "have the correct heading" in {
-        elementText("h1") mustBe "Are you still in education?"
+        elementText("h1") mustBe "What is your employment status?"
       }
 
       "render a form with a POST method" in {
@@ -42,23 +42,31 @@ class StillInEducationViewSpec extends ViewSpecBase {
       }
 
       "render a form that submits data to the correct route" in {
-        elementAttributes("form") must contain("action" -> uk.gov.hmrc.anothertaxfrontend.controllers.routes.StillInEducationController.submit.url)
+        elementAttributes("form") must contain("action" -> uk.gov.hmrc.anothertaxfrontend.controllers.routes.EmploymentStatusController.submit.url)
       }
 
-      "have a radio input for the yes option" in {
+      "have a radio input for the full time employment option" in {
         elementAttributes("input#value") must contain("type" -> "radio")
       }
 
-      "have a label associated to the yes option with the correct text" in {
-        elementText("""label[for="value"]""") mustBe "Yes"
+      "have a label associated to the full time employment option with the correct text" in {
+        elementText("""label[for="value"]""") mustBe "I am in full time employment"
       }
 
-      "have a radio input for the no option" in {
+      "have a radio input for the part time employment option" in {
         elementAttributes("input#value-2") must contain("type" -> "radio")
       }
 
-      "have a label associated to the no option with the correct text" in {
-        elementText("""label[for="value-2"]""") mustBe "No"
+      "have a label associated to the part time employment option with the correct text" in {
+        elementText("""label[for="value-2"]""") mustBe "I am in part time employment"
+      }
+
+      "have a radio input for the unemployment option" in {
+        elementAttributes("input#value-3") must contain("type" -> "radio")
+      }
+
+      "have a label associated to the unemployed option with the correct text" in {
+        elementText("""label[for="value-3"]""") mustBe "I am unemployed"
       }
 
       "have a button to submit form data" in {
@@ -70,8 +78,8 @@ class StillInEducationViewSpec extends ViewSpecBase {
     "rendering a view with errors" must {
 
       val badData = Map.empty[String, String]
-      lazy val target: StillInEducationPage = inject[StillInEducationPage]
-      lazy val form = inject[StillInEducationController].yesNoForm.bind(badData)
+      lazy val target: EmploymentStatusPage = inject[EmploymentStatusPage]
+      lazy val form = inject[EmploymentStatusController].employmentStatusForm.bind(badData)
       lazy val result: Html = target(form)
       lazy implicit val document: Document = Jsoup.parse(result.body)
 
@@ -80,11 +88,11 @@ class StillInEducationViewSpec extends ViewSpecBase {
       }
 
       "have an related to the options in the error summary" in {
-        elementText(""".govuk-error-summary ul.govuk-error-summary__list li a[href="#value"]""") mustBe "Tell us if you are still in education"
+        elementText(""".govuk-error-summary ul.govuk-error-summary__list li a[href="#value"]""") mustBe "Tell us your employment status"
       }
 
       "have an error message against the input in the form" in {
-        elementText("form p#value-error") mustBe "Error: Tell us if you are still in education"
+        elementText("form p#value-error") mustBe "Error: Tell us your employment status"
       }
 
     }

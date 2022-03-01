@@ -12,3 +12,7 @@ POST       /date-of-birth           uk.gov.hmrc.anothertaxfrontend.controllers.D
 
 GET        /still-in-education      uk.gov.hmrc.anothertaxfrontend.controllers.StillInEducationController.display
 POST       /still-in-education      uk.gov.hmrc.anothertaxfrontend.controllers.StillInEducationController.submit
+
+GET        /employment-status       uk.gov.hmrc.anothertaxfrontend.controllers.EmploymentStatusController.display
+POST       /employment-status       uk.gov.hmrc.anothertaxfrontend.controllers.EmploymentStatusController.submit
+
