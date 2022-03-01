@@ -1,0 +1,59 @@
+@*
+ * Copyright 2022 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@this(layout: Layout,
+        secureForm: FormWithCSRF,
+        govukRadios: GovukRadios,
+        govukButton: GovukButton,
+        govukErrorSummary: GovukErrorSummary)
+
+@(form: Form[String])(implicit request: Request[_], messages: Messages)
+
+@layout(pageTitle = Some(messages("service.name"))) {
+
+  @if(form.hasErrors) {
+    @govukErrorSummary(ErrorSummary().withFormErrorsAsText(form))
+  }
+
+  @secureForm(uk.gov.hmrc.anothertaxfrontend.controllers.routes.EmploymentStatusController.submit) {
+
+    @govukRadios(Radios(
+      items = Seq(
+        RadioItem(
+          content = Text(messages("employmentStatus.option.fullTime")),
+          value = Some("fullTime")
+        ),
+        RadioItem(
+          content = Text(messages("employmentStatus.option.partTime")),
+          value = Some("partTime")
+        ),
+        RadioItem(
+          content = Text(messages("employmentStatus.option.unemployed")),
+          value = Some("unemployed")
+        )
+      )
+    )
+    .withHeading(messages("employmentStatus.heading").toText)
+    .withFormField(form("value"))
+  )
+
+    @govukButton(Button(content = Text(messages("general.continue"))))
+  }
+}
+
+@{
+  //$COVERAGE-OFF$
+}
