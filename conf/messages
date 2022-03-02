@@ -4,6 +4,7 @@ service.text = This is your new service
 general.continue = Continue
 general.yes = Yes
 general.no = No
+general.currency.hint = For example, £600 or £193.54.
 
 fullName.heading = What is your name?
 fullName.first = First name
@@ -30,3 +31,9 @@ employmentStatus.required = Tell us your employment status
 employmentStatus.option.fullTime = I am in full time employment
 employmentStatus.option.partTime = I am in part time employment
 employmentStatus.option.unemployed = I am unemployed
+
+annualIncome.heading = What is your annual income?
+annualIncome.required = Enter your annual income
+annualIncome.invalid = Enter a valid income amount
+annualIncome.moreThanZero = Your annual income must be more than £0
+annualIncome.moreThanTwoDecimalPlaces = Enter an amount in pounds and pence
