@@ -64,4 +64,9 @@ package object mappings {
     of[String](formatter)
   }
 
+  def bigDecimal(requiredMessageKey: String, invalidMessageKey: String): FieldMapping[BigDecimal] = {
+    val formatter = BigDecimalFormatter.formatter(requiredMessageKey, invalidMessageKey)
+    of[BigDecimal](formatter)
+
+  }
 }
