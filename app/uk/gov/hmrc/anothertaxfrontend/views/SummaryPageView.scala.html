@@ -1,10 +1,110 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+@*
+ * Copyright 2022 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import uk.gov.hmrc.anothertaxfrontend.views.html.Layout
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import uk.gov.hmrc.anothertaxfrontend.models.DataModel
+@import scala.util.Try
+@import scala.util.Success
+
+
+@this(layout: Layout, formHelper: FormWithCSRF, hmrcBanner : HmrcBanner, govukButton : GovukButton, govukBackLink : GovukBackLink, govukSummaryList : GovukSummaryList)
+
+@(data: DataModel)(implicit request: Request[_], messages: Messages)
+
+@layout(pageTitle = Some(messages("summaryPage.title"))) {
+<h1 class="govuk-heading-xl">@{messages("summaryPage.title")}</h1>
+@formHelper(action = uk.gov.hmrc.anothertaxfrontend.controllers.routes.SummaryPageViewController.summaryPagePost) {
+
+    @govukSummaryList(SummaryList(
+    {def row(value: String, key: String, url: String): Option[SummaryListRow] =
+        if(value != "Not Found") {
+            Some(SummaryListRow(
+                key = Key(
+                    content = Text(messages(key))
+                ),
+                value = Value(content = Text(value)),
+                actions = Some(Actions(
+                    items = Seq(
+                        ActionItem(
+                            href = url,
+                            content = Text(messages("summaryPage.changeButton")),
+                            visuallyHiddenText = Some(key)
+                       )
+                    )
+                ))
+            ))
+        } else {
+            None
+        }
+        Seq(
+            row(
+                Try(data.firstName.get + " " + data.middleName.getOrElse("") + " " + data.lastName.get).getOrElse("Not Found"),
+                "summaryPage.userName",
+                uk.gov.hmrc.anothertaxfrontend.controllers.routes.AddNamePageViewController.addNamePage.url
+            ),
+            row(
+                Try(s"${data.dateOfBirth.get.getDayOfMonth}-${data.dateOfBirth.get.getMonthValue}-${data.dateOfBirth.get.getYear}").getOrElse("Not Found"),
+                "summaryPage.dateOfBirth",
+                uk.gov.hmrc.anothertaxfrontend.controllers.routes.AddDOBPageViewController.dateOfBirth.url
+            ),
+            row(
+                Try(data.education.get).getOrElse("Not Found"),
+                "summaryPage.education",
+                uk.gov.hmrc.anothertaxfrontend.controllers.routes.EducationPageViewController.educationPage.url
+            ),
+            row(
+                Try(s"${data.finishEducation.get.getDayOfMonth}-${data.finishEducation.get.getMonthValue}-${data.finishEducation.get.getYear}").getOrElse("Not Found"),
+                "summaryPage.finishEducation",
+                uk.gov.hmrc.anothertaxfrontend.controllers.routes.FinishEducationPageViewController.finishEducationPage.url
+            ),
+            row(
+                Try(data.employmentStatus.get).getOrElse("Not Found"),
+                "summaryPage.employmentStatus",
+                uk.gov.hmrc.anothertaxfrontend.controllers.routes.EmploymentStatusPageViewController.employmentStatusPage.url
+            ),
+            row(
+                Try(s"£ ${data.annualIncome.get}").getOrElse("Not Found").toString,
+                "summaryPage.annualIncome",
+                uk.gov.hmrc.anothertaxfrontend.controllers.routes.AnnualIncomePageViewController.annualIncomePage.url
+            )
+        ).flatten}
+    ))
+
+    <h2 class="govuk-heading-m">@messages("summaryPage.sendApplication")</h2>
+    <p class="govuk-body">@messages("summaryPage.sendApplicationInfo")</p>
+
+
+    @govukButton(Button(
+        isStartButton = true,
+        content = Text(messages("summaryPage.button"))
+    ))
+}
+
+}
+
+@{
+//$COVERAGE-OFF$
+}
+
+
+
+
+
+
+
+
+

@@ -20,7 +20,7 @@ import org.jsoup.nodes.Document
 import play.twirl.api.Html
 import uk.gov.hmrc.anothertaxfrontend.views.html.PageNotFoundView
 
-class NotFoundPageVieewSpec extends ViewSpecBase {
+class NotFoundPageViewSpec extends ViewSpecBase {
   "The NotFoundPageView" when{
 
     "rendering a view" should {
@@ -29,11 +29,11 @@ class NotFoundPageVieewSpec extends ViewSpecBase {
       lazy implicit val document: Document = Jsoup.parse(result.body)
 
       "have the correct heading" in {
-        elementText(selector = "h1") mustBe "Page Not Found"
+        elementText(selector = "h1") mustBe "Page not found"
       }
 
       "a link to the homepage with the correct text" in {
-        elementText(selector = "a.govuk-back-link") mustBe "Home Page"
+        elementText(selector = "a.govuk-back-link") mustBe "Home page"
       }
 
       "have a link to visit the homePage with the correct url" in {
