@@ -15,22 +15,32 @@
  */
 
 package uk.gov.hmrc.anothertaxfrontend.views
-
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import play.twirl.api.Html
-import uk.gov.hmrc.anothertaxfrontend.views.html.HelloWorldPage
+import uk.gov.hmrc.anothertaxfrontend.views.html.PageNotFoundView
 
-class HelloWorldViewSpec extends ViewSpecBase {
+class NotFoundPageVieewSpec extends ViewSpecBase {
+  "The NotFoundPageView" when{
 
-  "Hello World View" when {
     "rendering a view" should {
+      val target = inject[PageNotFoundView]
+      val result: Html= target()
+      lazy implicit val document: Document = Jsoup.parse(result.body)
+
       "have the correct heading" in {
-        val target = inject[HelloWorldPage]
-        val result: Html = target()
-        lazy implicit val document: Document = Jsoup.parse(result.body)
-        elementText("h1") mustBe "another-tax-frontend"
+        elementText(selector = "h1") mustBe "Page Not Found"
+      }
+
+      "a link to the homepage with the correct text" in {
+        elementText(selector = "a.govuk-back-link") mustBe "Home Page"
+      }
+
+      "have a link to visit the homePage with the correct url" in {
+        elementAttributes(cssSelector = ".govuk-back-link") must contain ("href" -> uk.gov.hmrc.anothertaxfrontend.controllers.routes.HomePageViewController.homePage.url)
       }
     }
   }
+
 }
+
