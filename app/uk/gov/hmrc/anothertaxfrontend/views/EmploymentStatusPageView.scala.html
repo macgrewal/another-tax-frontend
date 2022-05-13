@@ -1,0 +1,92 @@
+@*
+ * Copyright 2022 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import uk.gov.hmrc.anothertaxfrontend.views.html.Layout
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import uk.gov.hmrc.anothertaxfrontend.models.EmploymentStatusPageModel
+
+
+@this(layout: Layout, formHelper: FormWithCSRF, hmrcBanner : HmrcBanner, govukButton : GovukButton, govukBackLink : GovukBackLink, govukRadios : GovukRadios, govukErrorSummary : GovukErrorSummary)
+
+@(userForm: Form[EmploymentStatusPageModel])(implicit request: Request[_], messages: Messages)
+
+@layout(pageTitle = Some(messages("employmentStatusPage.title"))) {
+
+ @govukBackLink(BackLink(
+  href = uk.gov.hmrc.anothertaxfrontend.controllers.routes.FinishEducationPageViewController.finishEducationPage.url,
+  content = Text(messages("backLink"))
+ ))
+
+ @formHelper(action = uk.gov.hmrc.anothertaxfrontend.controllers.routes.EmploymentStatusPageViewController.employmentStatusPagePost) {
+
+  @if(userForm.hasErrors) {
+   @govukErrorSummary(ErrorSummary().withFormErrorsAsText(userForm, Map(
+    "employmentStatus" -> "employmentStatus",
+    "" -> "employmentStatus"
+   )))
+  }
+
+  @govukRadios(Radios(
+   errorMessage = userForm.errors.headOption.map { error =>
+     ErrorMessage(content = Text(messages(error.messages)))
+   },
+   fieldset = Some(Fieldset(
+    legend = Some(Legend(
+     content = Text(messages("employmentStatusPage.title")),
+     classes = "govuk-fieldset__legend--xl",
+     isPageHeading = true
+    ))
+   )),
+   name = "employmentStatus",
+   items = Seq(
+    RadioItem(
+     content = Text(messages("employmentStatusPage.unemployed")),
+     value = Some(messages("employmentStatusPage.unemployed")),
+     checked = if(userForm("employmentStatus").value.getOrElse("").contains(messages("employmentStatusPage.unemployed"))) true else false
+    ),
+    RadioItem(
+     content = Text(messages("employmentStatusPage.partTimeEmployment")),
+     value = Some(messages("employmentStatusPage.partTimeEmployment")),
+     checked = if(userForm("employmentStatus").value.getOrElse("").contains(messages("employmentStatusPage.partTimeEmployment"))) true else false
+    ),
+    RadioItem(
+     content = Text(messages("employmentStatusPage.fullTimeEmployment")),
+     value = Some(messages("employmentStatusPage.fullTimeEmployment")),
+     checked = if(userForm("employmentStatus").value.getOrElse("").contains(messages("employmentStatusPage.fullTimeEmployment"))) true else false
+    )
+   )
+  ))
+
+  @govukButton(Button(
+   isStartButton = false,
+   content = Text(messages("employmentStatusPage.button"))
+  ))
+
+ }
+}
+
+@{
+//$COVERAGE-OFF$
+}
+
+
+
+
+
+
+
+
+

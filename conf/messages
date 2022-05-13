@@ -1,2 +1,93 @@
-service.name = another-tax-frontend
-service.text = This is your new service
+homePage.title = Another tax service
+homePage.text = Enter your current education and annual salary to see what you’re required to pay for the new Another Tax
+homePage.button = Start now
+
+addNamePage.title = Enter your name
+addNamePage.firstName = First name
+addNamePage.middleName = Middle name (optional)
+addNamePage.lastName = Last name
+addNamePage.button = Continue
+
+dateOfBirthPage.title = What is your date of birth?
+dateOfBirthPage.example = For example, 31 3 1980
+dateOfBirthPage.pastDate = Enter a date in the past
+dateOfBirthPage.realDate = Enter a real date
+
+dateOfBirthPage.dayNotEmpty = Enter your day of birth
+dateOfBirthPage.dayNumber = Enter a number for the day of birth
+dateOfBirthPage.dayRange = Enter a valid number for the day of birth
+
+dateOfBirthPage.monthNotEmpty = Enter your month of birth
+dateOfBirthPage.monthNumber = Enter a number for the month of birth
+dateOfBirthPage.monthRange = Enter a valid number for the month of birth
+
+dateOfBirthPage.yearNotEmpty = Enter your year of birth
+dateOfBirthPage.yearNumber = Enter a four digit number for your year of birth
+dateOfBirthPage.yearRange = Enter a year of birth after 1900
+
+dateOfBirthPage.button = Continue
+
+educationPage.title = Are you still in education?
+educationPage.yesOption = Yes
+educationPage.noOption = No
+educationPage.title = Are you still in education?
+educationPage.select = Select one of the options
+educationPage.button = Continue
+
+finishEducationPage.title = What year did you finish education?
+finishEducationPage.example = For example, 30 6 2005
+finishEducationPage.pastDate = Enter a date in the past
+finishEducationPage.realDate = Enter a real date
+
+finishEducationPage.dayEmpty = Enter the day you finished education
+finishEducationPage.dayNumber = Enter a number for the day you finished education
+finishEducationPage.dayRange = Enter a valid number for the day you finished education
+
+finishEducationPage.monthEmpty = Enter the month you finished education
+finishEducationPage.monthNumber = Enter a number for the month you finished education
+finishEducationPage.monthRange = Enter a valid number for the month you finished education
+
+finishEducationPage.yearEmpty = Enter the year you finished education
+finishEducationPage.yearNumber = Enter a four digit number for the year you finished education
+finishEducationPage.yearRange = Enter a year after 1900
+finishEducationPage.button = Continue
+
+employmentStatusPage.title = What is your employment status?
+employmentStatusPage.unemployed = Unemployed
+employmentStatusPage.fullTimeEmployment = Full time employment
+employmentStatusPage.partTimeEmployment = Part time employment
+employmentStatusPage.select = Select one of the options
+employmentStatusPage.button = Continue
+
+annualIncomePage.title = What is your annual income?
+annualIncomePage.example = For example, £20000 or £34600.50
+annualIncomePage.emptyInput = Enter your annual income
+annualIncomePage.number = Enter a valid number for your annual income
+annualIncomePage.decimal = Enter a number up to two decimal places
+annualIncomePage.button = Continue
+
+summaryPage.title = Check your answers
+summaryPage.userName = What is your name?
+summaryPage.dateOfBirth = What is your date of birth?
+summaryPage.education = Are you still in education?
+summaryPage.finishEducation = What year did you finish education?
+summaryPage.employmentStatus = What is your employment status?
+summaryPage.annualIncome = What is your annual income?
+summaryPage.changeButton = Change
+summaryPage.sendApplication = Now send your application
+summaryPage.sendApplicationInfo = By submitting this application you are confirming that, to the best of your knowledge, the details you are providing are correct.
+summaryPage.button = Submit tax information
+
+confirmationPage.title = Application complete
+confirmationPage.reference = Your reference number
+confirmationPage.emailMessage = We have sent you a confirmation email
+confirmationPage.next = What happens next
+confirmationPage.sent = We’ve sent your application to the Another Tax Service Office.
+confirmationPage.followUp = They will contact you either to confirm your registration, or to ask for more information
+confirmationPage.button = Return home
+
+pageNotFound.title = Page not found
+pageNotFound.button = Home page
+
+backLink = Back
+

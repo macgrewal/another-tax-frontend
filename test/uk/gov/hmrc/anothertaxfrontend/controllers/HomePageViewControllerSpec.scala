@@ -15,39 +15,36 @@
  */
 
 package uk.gov.hmrc.anothertaxfrontend.controllers
-
 import play.api.Application
 import play.api.http.Status
+import play.api.i18n.Messages
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.Helpers._
 
-class HelloWorldControllerSpec extends ControllerSpecBase {
+import javax.inject.Inject
 
+class HomePageViewControllerSpec extends ControllerSpecBase  {
   override def fakeApplication(): Application =
-    new GuiceApplicationBuilder()
-      .configure(
-        "metrics.jvm" -> false,
-        "metrics.enabled" -> false
-      )
-      .build()
+    new GuiceApplicationBuilder().configure(
+      conf = "metrics.jvm" -> false,
+      "metrics.enabled" -> false
+    ).build()
 
-  private val controller = inject[HelloWorldController]
+  private val controller = inject[HomePageViewController]
 
-  "HelloWorldController" when {
-    "calling helloWorld()" must {
+  "HomePageViewController" when {
+    "calling homePage()" must {
 
       "return 200 (Ok)" in {
-        val result = controller.helloWorld(fakeRequest)
+        val result = controller.homePage(fakeRequest)
         status(result) mustBe Status.OK
       }
 
       "return HTML" in {
-        val result = controller.helloWorld(fakeRequest)
+        val result = controller.homePage(fakeRequest)
         contentType(result) mustBe Some("text/html")
-        charset(result) mustBe Some("utf-8")
+        contentAsString(result) must include ("Another tax service")
       }
-
     }
   }
-
 }

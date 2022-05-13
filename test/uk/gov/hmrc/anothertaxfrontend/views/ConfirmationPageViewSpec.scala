@@ -15,22 +15,30 @@
  */
 
 package uk.gov.hmrc.anothertaxfrontend.views
-
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import play.twirl.api.Html
-import uk.gov.hmrc.anothertaxfrontend.views.html.HelloWorldPage
+import uk.gov.hmrc.anothertaxfrontend.views.html.ConfirmationPageView
 
-class HelloWorldViewSpec extends ViewSpecBase {
-
-  "Hello World View" when {
+class ConfirmationPageViewSpec extends ViewSpecBase {
+  "The Confirmation Page View" when {
     "rendering a view" should {
+      val target = inject[ConfirmationPageView]
+      val result: Html = target("you owe x in tax", Some("HJH32HB2"))
+      lazy implicit val document: Document = Jsoup.parse(result.body)
+
       "have the correct heading" in {
-        val target = inject[HelloWorldPage]
-        val result: Html = target()
-        lazy implicit val document: Document = Jsoup.parse(result.body)
-        elementText("h1") mustBe "another-tax-frontend"
+        elementText(selector = "h1") mustBe "Application complete"
       }
+
+      "have a button to submit form data" in {
+        elementText("a.govuk-button") mustBe "Return home"
+      }
+
+      "have a link to visit the previous page" in {
+        elementAttributes(cssSelector = ".govuk-button") must contain ("href" -> uk.gov.hmrc.anothertaxfrontend.controllers.routes.HomePageViewController.homePage.url)
+      }
+
     }
   }
 }

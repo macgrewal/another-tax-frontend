@@ -14,15 +14,32 @@
  * limitations under the License.
  *@
 
-@this(layout: Layout)
+@import uk.gov.hmrc.anothertaxfrontend.views.html.Layout
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+@this(layout: Layout, hmrcBanner : HmrcBanner, govukButton : GovukButton)
 
 @()(implicit request: Request[_], messages: Messages)
 
-@layout(pageTitle = Some("another-tax-frontend")) {
-    <h1 class="govuk-heading-xl">another-tax-frontend</h1>
-    <p class="govuk-body">@{messages("service.text")}</p>
+@layout(pageTitle = Some(messages("homePage.title"))) {
+@hmrcBanner(Banner())<br>
+<h1 class="govuk-heading-xl">@{messages("homePage.title")}</h1>
+<p class="govuk-body">@{messages("homePage.text")}</p><br>
+@govukButton(Button(
+href = Some(uk.gov.hmrc.anothertaxfrontend.controllers.routes.AddNamePageViewController.addNamePage.url),
+isStartButton = true,
+content = Text(messages("homePage.button"))
+))
 }
 
 @{
-    //$COVERAGE-OFF$
+//$COVERAGE-OFF$
 }
+
+
+
+
+
+
+
+
+

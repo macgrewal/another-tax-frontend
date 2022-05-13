@@ -1,5 +1,33 @@
 # microservice specific routes
 
 ->         /hmrc-frontend           hmrcfrontend.Routes
-GET        /                        uk.gov.hmrc.anothertaxfrontend.controllers.HelloWorldController.helloWorld
+GET        /                        uk.gov.hmrc.anothertaxfrontend.controllers.HomePageViewController.homePage
+
+GET        /not-found               uk.gov.hmrc.anothertaxfrontend.controllers.PageNotFoundViewController.pageNotFound
+
+GET        /add-name                uk.gov.hmrc.anothertaxfrontend.controllers.AddNamePageViewController.addNamePage
+POST       /add-name                uk.gov.hmrc.anothertaxfrontend.controllers.AddNamePageViewController.addNamePagePost
+
+GET        /date-of-birth           uk.gov.hmrc.anothertaxfrontend.controllers.AddDOBPageViewController.dateOfBirth
+POST       /date-of-birth           uk.gov.hmrc.anothertaxfrontend.controllers.AddDOBPageViewController.dateOfBirthPost
+
+GET        /education               uk.gov.hmrc.anothertaxfrontend.controllers.EducationPageViewController.educationPage
+POST       /education               uk.gov.hmrc.anothertaxfrontend.controllers.EducationPageViewController.educationPagePost
+
+GET        /finish-education        uk.gov.hmrc.anothertaxfrontend.controllers.FinishEducationPageViewController.finishEducationPage
+POST       /finish-education        uk.gov.hmrc.anothertaxfrontend.controllers.FinishEducationPageViewController.finishEducationPagePost
+
+GET        /employment-status       uk.gov.hmrc.anothertaxfrontend.controllers.EmploymentStatusPageViewController.employmentStatusPage
+POST       /employment-status       uk.gov.hmrc.anothertaxfrontend.controllers.EmploymentStatusPageViewController.employmentStatusPagePost
+
+GET        /annual-income           uk.gov.hmrc.anothertaxfrontend.controllers.AnnualIncomePageViewController.annualIncomePage
+POST       /annual-income           uk.gov.hmrc.anothertaxfrontend.controllers.AnnualIncomePageViewController.annualIncomePagePost
+
+GET        /summary-page            uk.gov.hmrc.anothertaxfrontend.controllers.SummaryPageViewController.summaryPage
+POST       /summary-page            uk.gov.hmrc.anothertaxfrontend.controllers.SummaryPageViewController.summaryPagePost
+
+GET        /confirmation-page       uk.gov.hmrc.anothertaxfrontend.controllers.ConfirmationPageViewController.confirmationPage
+
+
+
 GET        /assets/*file            controllers.Assets.versioned(path = "/public", file: Asset)

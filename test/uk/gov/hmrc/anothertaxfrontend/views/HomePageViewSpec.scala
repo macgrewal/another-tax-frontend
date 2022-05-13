@@ -14,22 +14,25 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.anothertaxfrontend.controllers
+package uk.gov.hmrc.anothertaxfrontend.views
 
-import uk.gov.hmrc.anothertaxfrontend.views.html.HelloWorldPage
-import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendController
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import javax.inject.{Inject, Singleton}
-import scala.concurrent.Future
+import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
+import play.twirl.api.Html
+import uk.gov.hmrc.anothertaxfrontend.views.html.HomePageView
 
-@Singleton
-class HelloWorldController @Inject()(
-  mcc: MessagesControllerComponents,
-  helloWorldPage: HelloWorldPage)
-    extends FrontendController(mcc) {
 
-  val helloWorld: Action[AnyContent] = Action.async { implicit request =>
-    Future.successful(Ok(helloWorldPage()))
+class HomePageViewSpec extends ViewSpecBase {
+
+  "The HomePageView" when {
+    "rendering a view" should {
+      "have the correct heading" in {
+        val target = inject[HomePageView]
+        val result: Html= target()
+        lazy implicit val document: Document = Jsoup.parse(result.body)
+        elementText(selector = "h1") mustBe "Another tax service"
+      }
+    }
   }
 
 }
