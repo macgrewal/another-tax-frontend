@@ -20,7 +20,7 @@ import play.api.libs.json._
 import uk.gov.hmrc.anothertaxfrontend.core.UnitSpec
 
 class AddNamePageModelSpec extends UnitSpec {
-  private val completeModel = AddNamePageModel("John", "middle", "Doe")
+  private val completeModel = AddNamePageModel("John", Some("middle"), "Doe")
   private val completeModelJson: JsValue = Json.obj(
     "firstName" -> completeModel.firstName,
     "middleName" -> completeModel.middleName,
@@ -123,10 +123,10 @@ class AddNamePageModelSpec extends UnitSpec {
     }
 
     "bound with data containing a valid input" must {
-      val model = AddNamePageModel("John", "middle", "Doe")
+      val model = AddNamePageModel("John", Some("middle"), "Doe")
       val data = Map(
         "firstName" -> completeModel.firstName,
-        "middleName" -> completeModel.middleName,
+        "middleName" -> completeModel.middleName.getOrElse(""),
         "lastName" -> completeModel.lastName
       )
       "result in no errors" in {

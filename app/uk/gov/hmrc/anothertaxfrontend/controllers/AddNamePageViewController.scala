@@ -48,7 +48,7 @@ class AddNamePageViewController @Inject()(
     AddNamePageModel.form.bindFromRequest.fold(
       formWithErrors => Future.successful(BadRequest(addNamePageView(formWithErrors))),
       formData => Future.successful(Redirect(uk.gov.hmrc.anothertaxfrontend.controllers.routes.AddDOBPageViewController.dateOfBirth)
-        .addingToSession("userData" -> Json.toJson(user.copy(Option(formData.firstName), Option(formData.middleName), Option(formData.lastName))).toString()))
+        .addingToSession("userData" -> Json.toJson(user.copy(Option(formData.firstName), formData.middleName, Option(formData.lastName))).toString()))
       )
   }
 }

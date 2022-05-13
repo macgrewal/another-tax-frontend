@@ -51,8 +51,8 @@ class ConfirmationPageViewController @Inject()
 
       val referenceNumber = request.session.get("referenceNumber")
 
-      val tax = "You do not qualify for this tax since you are still in education"
-      Future.successful(Ok(confirmationPageView(tax, referenceNumber)))
+//      val tax = "You do not qualify for this tax since you are still in education"
+//      Future.successful(Ok(confirmationPageView(tax, referenceNumber)))
 
 
 
@@ -66,10 +66,10 @@ class ConfirmationPageViewController @Inject()
         val tax = "You owe no tax since you are unemployed"
         Future.successful(Ok(confirmationPageView(tax, referenceNumber)))
       } else if (referenceNumber.isDefined && user.employmentStatus.contains("Part time employment")) {
-        val tax = s"You owe £ ${annualIncome.toString.toDouble * 0.05} of tax"
+        val tax = s"You owe £ ${BigDecimal(annualIncome.toString.toDouble * 0.05).setScale(2,BigDecimal.RoundingMode.HALF_UP)} of tax"
         Future.successful(Ok(confirmationPageView(tax, referenceNumber)))
       } else if (referenceNumber.isDefined && user.employmentStatus.contains("Full time employment")) {
-        val tax = s"You owe £ ${annualIncome.toString.toDouble * 0.10} of tax"
+         val tax = s"You owe £ ${BigDecimal(annualIncome.toString.toDouble * 0.10).setScale(2,BigDecimal.RoundingMode.HALF_UP)} of tax"
         Future.successful(Ok(confirmationPageView(tax, referenceNumber)))
       } else {
         Future.successful(Redirect(uk.gov.hmrc.anothertaxfrontend.controllers.routes.PageNotFoundViewController.pageNotFound))

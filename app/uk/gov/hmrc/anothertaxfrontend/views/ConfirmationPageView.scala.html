@@ -28,7 +28,7 @@
   content = HtmlContent(s"${messages("confirmationPage.reference")}<br><strong>${referenceNumber.getOrElse("")}</strong>")
  ))
 
- <h2 class="govuk-heading-m">@tax</h2>
+ <h2 id="tax" class="govuk-heading-m">@tax</h2>
  <p class="govuk-body">@messages("confirmationPage.emailMessage")</p>
  <h2 class="govuk-heading-m">@messages("confirmationPage.next")</h2>
  <p class="govuk-body">@messages("confirmationPage.sent")</p>

@@ -25,24 +25,30 @@
 
 @(data: DataModel)(implicit request: Request[_], messages: Messages)
 
+
+@rowValue(value:String, key:String)={
+    <span id="@key">@value</span>
+}
+
 @layout(pageTitle = Some(messages("summaryPage.title"))) {
 <h1 class="govuk-heading-xl">@{messages("summaryPage.title")}</h1>
+
 @formHelper(action = uk.gov.hmrc.anothertaxfrontend.controllers.routes.SummaryPageViewController.summaryPagePost) {
 
     @govukSummaryList(SummaryList(
-    {def row(value: String, key: String, url: String): Option[SummaryListRow] =
+        {def row(value: String, key: String, url: String): Option[SummaryListRow] =
         if(value != "Not Found") {
             Some(SummaryListRow(
                 key = Key(
-                    content = Text(messages(key))
+                    content = Text(messages(key)),
                 ),
-                value = Value(content = Text(value)),
+                value = Value(content = HtmlContent(rowValue(value, key))),
                 actions = Some(Actions(
                     items = Seq(
                         ActionItem(
                             href = url,
                             content = Text(messages("summaryPage.changeButton")),
-                            visuallyHiddenText = Some(key)
+                            visuallyHiddenText = Some(s"Change ${messages(key)}")
                        )
                     )
                 ))
@@ -57,7 +63,7 @@
                 uk.gov.hmrc.anothertaxfrontend.controllers.routes.AddNamePageViewController.addNamePage.url
             ),
             row(
-                Try(s"${data.dateOfBirth.get.getDayOfMonth}-${data.dateOfBirth.get.getMonthValue}-${data.dateOfBirth.get.getYear}").getOrElse("Not Found"),
+                Try(s"${if(data.dateOfBirth.get.getDayOfMonth < 10) "0"+data.dateOfBirth.get.getDayOfMonth else data.dateOfBirth.get.getDayOfMonth}-${if(data.dateOfBirth.get.getMonthValue < 10) "0"+data.dateOfBirth.get.getMonthValue else data.dateOfBirth.get.getMonthValue}-${data.dateOfBirth.get.getYear}").getOrElse("Not Found"),
                 "summaryPage.dateOfBirth",
                 uk.gov.hmrc.anothertaxfrontend.controllers.routes.AddDOBPageViewController.dateOfBirth.url
             ),
@@ -67,7 +73,7 @@
                 uk.gov.hmrc.anothertaxfrontend.controllers.routes.EducationPageViewController.educationPage.url
             ),
             row(
-                Try(s"${data.finishEducation.get.getDayOfMonth}-${data.finishEducation.get.getMonthValue}-${data.finishEducation.get.getYear}").getOrElse("Not Found"),
+                Try(s"${if(data.finishEducation.get.getDayOfMonth < 10) "0"+data.finishEducation.get.getDayOfMonth else data.finishEducation.get.getDayOfMonth }-${if(data.finishEducation.get.getMonthValue < 10) "0"+data.finishEducation.get.getMonthValue else data.finishEducation.get.getMonthValue}-${data.finishEducation.get.getYear}").getOrElse("Not Found"),
                 "summaryPage.finishEducation",
                 uk.gov.hmrc.anothertaxfrontend.controllers.routes.FinishEducationPageViewController.finishEducationPage.url
             ),

@@ -20,7 +20,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.libs.json._
 
-case class AddNamePageModel(firstName: String, middleName: String, lastName: String)
+case class AddNamePageModel(firstName: String, middleName: Option[String], lastName: String)
 
 object AddNamePageModel {
   implicit val writes: OWrites[AddNamePageModel] = Json.writes[AddNamePageModel]
@@ -32,8 +32,7 @@ object AddNamePageModel {
         .verifying("Enter your first name", value => value.trim.nonEmpty)
         .verifying("First name cannot contain numbers or special characters", value => value.forall(_.isLetter))
       ,
-      "middleName" -> text
-        .verifying("Middle name cannot contain numbers or special characters", value => value.forall(_.isLetter))
+      "middleName" -> optional(text).verifying("Middle name cannot contain numbers or special characters", value => value.getOrElse("").forall(_.isLetter))
       ,
       "lastName" -> text
         .verifying("Enter your last name", value => value.trim.nonEmpty)
